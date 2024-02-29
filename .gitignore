@@ -40,3 +40,6 @@ data
 
 # environment file
 .env
+
+*.txt
+*.pem
