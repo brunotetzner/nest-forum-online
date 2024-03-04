@@ -14,8 +14,6 @@ import { JwtStrategy } from "./jwt.strategy";
       useFactory(config: ConfigService<Env, true>) {
         const privateKey = config.get("JWT_PRIVATE_KEY", { infer: true });
         const publicKey = config.get("JWT_PUBLIC_KEY", { infer: true });
-        console.log("key 1", privateKey);
-        console.log("key 2", publicKey);
         return {
           signOptions: {
             algorithm: "RS256",
