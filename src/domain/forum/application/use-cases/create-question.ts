@@ -1,5 +1,5 @@
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { QuestionRepository } from "../repositories/question-repository";
+import { QuestionsRepository } from "../repositories/questions-repository";
 import { Question } from "../../enterprise/entities/question";
 import { Either, right } from "@/core/either";
 import { QuestionAttachment } from "../../enterprise/entities/question-attachment";
@@ -20,7 +20,7 @@ type CreateQuestionUseCaseResponse = Either<
 >;
 
 export class CreateQuestionUseCase {
-  constructor(private questionRepository: QuestionRepository) {}
+  constructor(private questionsRepository: QuestionsRepository) {}
   async execute({
     authorId,
     title,
@@ -40,7 +40,7 @@ export class CreateQuestionUseCase {
       })
     );
     question.attachments = new QuestionAttachmentList(questionAttachments);
-    await this.questionRepository.create(question);
+    await this.questionsRepository.create(question);
 
     return right({ question });
   }

@@ -1,5 +1,5 @@
 import { AnswerComment } from "@/domain/forum/enterprise/entities/answer-comment";
-import { AnswerCommentRepository } from "@/domain/forum/application/repositories/answer-comment-repository";
+import { AnswerCommentsRepository } from "@/domain/forum/application/repositories/answer-comments-repository";
 import { Either, right } from "@/core/either";
 
 interface FetchAnswerCommentsUseCaseRequest {
@@ -15,7 +15,7 @@ type FetchAnswerCommentsUseCaseResponse = Either<
 >;
 
 export class FetchAnswerCommentsUseCase {
-  constructor(private answerCommentsRepository: AnswerCommentRepository) {}
+  constructor(private answerCommentsRepository: AnswerCommentsRepository) {}
 
   async execute({
     answerId,

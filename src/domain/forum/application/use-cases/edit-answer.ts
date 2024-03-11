@@ -1,6 +1,6 @@
 import { Either, left, right } from "@/core/either";
 import { Answer } from "../../enterprise/entities/answer";
-import { AnswerRepository } from "../repositories/answer-repository";
+import { AnswersRepository } from "../repositories/answers-repository";
 import { NotAllowedError } from "@/core/errors/errors/not-allowed";
 import { ResourceNotFoundError } from "@/core/errors/errors/resource-not-found";
 import { AnswerAttachmentsRepository } from "../repositories/answer-attachment-repository";
@@ -24,7 +24,7 @@ type EditAnswerUseCaseResponse = Either<
 
 export class EditAnswerUseCase {
   constructor(
-    private answerRepository: AnswerRepository,
+    private answersRepository: AnswersRepository,
     private answerAttachmentsRepository: AnswerAttachmentsRepository
   ) {}
   async execute({
@@ -33,7 +33,7 @@ export class EditAnswerUseCase {
     content,
     attachmentsIds,
   }: EditAnswerUseCaseRequest): Promise<EditAnswerUseCaseResponse> {
-    const answer = await this.answerRepository.findById(answerId);
+    const answer = await this.answersRepository.findById(answerId);
 
     if (!answer) {
       return left(new ResourceNotFoundError());
@@ -60,7 +60,7 @@ export class EditAnswerUseCase {
     answer.attachments = answerAttachmentList;
     answer.content = content;
 
-    await this.answerRepository.save(answer);
+    await this.answersRepository.save(answer);
 
     return right({ answer });
   }

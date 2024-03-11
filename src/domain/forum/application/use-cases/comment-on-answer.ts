@@ -1,7 +1,7 @@
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { AnswerRepository } from "../repositories/answer-repository";
+import { AnswersRepository } from "../repositories/answers-repository";
 import { AnswerComment } from "../../enterprise/entities/answer-comment";
-import { AnswerCommentRepository } from "../repositories/answer-comment-repository";
+import { AnswerCommentsRepository } from "../repositories/answer-comments-repository";
 import { Either, left, right } from "@/core/either";
 import { ResourceNotFoundError } from "@/core/errors/errors/resource-not-found";
 
@@ -20,15 +20,15 @@ type CommentOnAnswerUseCaseResponse = Either<
 
 export class CommentOnAnswerUseCase {
   constructor(
-    private answerRepository: AnswerRepository,
-    private answerCommentRepository: AnswerCommentRepository
+    private answersRepository: AnswersRepository,
+    private answerCommentsRepository: AnswerCommentsRepository
   ) {}
   async execute({
     authorId,
     answerId,
     content,
   }: CommentOnAnswerUseCaseRequest): Promise<CommentOnAnswerUseCaseResponse> {
-    const answer = await this.answerRepository.findById(answerId);
+    const answer = await this.answersRepository.findById(answerId);
 
     if (!answer) {
       return left(new ResourceNotFoundError());
@@ -40,7 +40,7 @@ export class CommentOnAnswerUseCase {
       content,
     });
 
-    await this.answerCommentRepository.create(answerComment);
+    await this.answerCommentsRepository.create(answerComment);
 
     return right({ answerComment });
   }

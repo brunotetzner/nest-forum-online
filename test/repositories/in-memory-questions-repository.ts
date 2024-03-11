@@ -1,11 +1,11 @@
 import { PaginationParams } from "@/core/repositories/pagination-params";
-import { QuestionRepository } from "@/domain/forum/application/repositories/question-repository";
+import { QuestionsRepository } from "@/domain/forum/application/repositories/questions-repository";
 import { Question } from "@/domain/forum/enterprise/entities/question";
 import { Slug } from "@/domain/forum/enterprise/entities/value-objec/slug";
-import { QuestionAttachmentsRepository } from "@/domain/forum/application/repositories/question-attachment-repository";
+import { QuestionAttachmentsRepository } from "@/domain/forum/application/repositories/question-attachments-repository";
 import { DomainEvents } from "@/core/events/domain-events";
 
-export class InMemoryQuestionsRepository implements QuestionRepository {
+export class InMemoryQuestionsRepository implements QuestionsRepository {
   public items: Question[] = [];
 
   constructor(
